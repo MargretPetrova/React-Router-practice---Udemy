@@ -30,6 +30,7 @@ import NewEvent, {action as actionAdd} from "./pages/NewEvent";
 import RootLayout from "./pages/Root";
 import EventsRootLayout from "./pages/EventsRootLayout";
 import Error from "./pages/Error";
+import {action as methodAction} from "./components/EventForm"
 
 const router = createBrowserRouter([
   {
@@ -48,10 +49,10 @@ const router = createBrowserRouter([
           {
             path: ":eventId", id: "event-details", loader: detailLoader, children: [
               { index:true,action:actionDelete , element: <EventDetail />, },
-              { path: "edit", element: <EditEvent /> }
+              { path: "edit",action: methodAction, element: <EditEvent /> }
             ]
           },
-          { path: "new",action: actionAdd, element: <NewEvent /> },
+          { path: "new",action: methodAction, element: <NewEvent /> },
 
         ]
       }

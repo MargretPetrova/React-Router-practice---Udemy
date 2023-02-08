@@ -1,4 +1,11 @@
-const Home=()=>{
-    return <h1>Home Page</h1>
-};
-export default Home;
+import PageContent from '../components/PageContent';
+
+function HomePage() {
+  return (
+    <PageContent title="Welcome!">
+      <p>Browse all our amazing events!</p>
+    </PageContent>
+  );
+}
+
+export default HomePage;

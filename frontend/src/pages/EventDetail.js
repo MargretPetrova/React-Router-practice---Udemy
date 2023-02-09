@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import {
+ 
   useRouteLoaderData,
   json,
   redirect,
@@ -9,9 +10,11 @@ import {
 
 import EventItem from '../components/EventItem';
 import EventsList from '../components/EventsList';
+import { getAuthData } from '../utils/authentication';
 
 function EventDetailPage() {
   const { event, events } = useRouteLoaderData('event-detail');
+  ;
 
   return (
     <>
@@ -78,8 +81,13 @@ export async function loader({ request, params }) {
 
 export async function action({ params, request }) {
   const eventId = params.eventId;
+  const token = getAuthData()
   const response = await fetch('http://localhost:8080/events/' + eventId, {
     method: request.method,
+    headers:{
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    }
   });
 
   if (!response.ok) {

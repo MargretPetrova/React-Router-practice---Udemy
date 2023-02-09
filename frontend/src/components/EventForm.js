@@ -4,12 +4,15 @@ import {
   useNavigation,
   useActionData,
   json,
-  redirect
+  redirect,
+  
 } from 'react-router-dom';
+import { getAuthData } from '../utils/authentication';
 
 import classes from './EventForm.module.css';
 
 function EventForm({ method, event }) {
+
   const data = useActionData();
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -86,6 +89,8 @@ export default EventForm;
 export async function action({ request, params }) {
   const method = request.method;
   const data = await request.formData();
+  const token = getAuthData()
+  console.log(token);
 
   const eventData = {
     title: data.get('title'),
@@ -105,6 +110,7 @@ export async function action({ request, params }) {
     method: method,
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     },
     body: JSON.stringify(eventData),
   });

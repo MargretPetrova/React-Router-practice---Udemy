@@ -38,10 +38,15 @@ export async function action({request, params}){
   }
   const resData = await response.json();
   const token = resData.token;
-  localStorage.setItem('token', token);
+  // localStorage.setItem('token', token);
   const expiration = new Date();
-  expiration.setHours(expiration.getHours()+ 1);
-  localStorage.setItem('expiration', expiration.toISOString())
+  expiration.setHours(expiration.getHours()+ 0.01);
+  // localStorage.setItem('expiration', expiration.toISOString())
+  const userInfo = {
+    token:token,
+    expiration: expiration.toISOString()
+  }
+  localStorage.setItem('userInfo', JSON.stringify(userInfo))
   return redirect('/')
 
 }
